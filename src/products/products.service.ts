@@ -1,26 +1,49 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { HttpService } from '@nestjs/axios';
+import { catchError, firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class ProductsService {
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  constructor(private readonly httpService: HttpService) {}
+
+  async create(createProductDto: CreateProductDto) {
+    const { data } = await firstValueFrom(
+      this.httpService.post('https://dummyjson.com/products', {
+        createProductDto,
+      }),
+    );
+    return data;
   }
 
-  findAll() {
-    return `This action returns all products`;
+  async findAll() {
+    const { data } = await firstValueFrom(
+      this.httpService.get('https://dummyjson.com/products'),
+    );
+    return data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: number) {
+    const { data } = await firstValueFrom(
+      this.httpService.get('https://dummyjson.com/products/' + id),
+    );
+    return data;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: number, updateProductDto: UpdateProductDto) {
+    const { data } = await firstValueFrom(
+      this.httpService.put('https://dummyjson.com/products/' + id, {
+        updateProductDto,
+      }),
+    );
+    return data;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number) {
+    const { data } = await firstValueFrom(
+      this.httpService.delete('https://dummyjson.com/products/' + id),
+    );
+    return data;
   }
 }
