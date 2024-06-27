@@ -46,6 +46,9 @@ $ npm run start:prod
 ```
 
 
+## Documentación de la API
+La documentación de la API se genera automáticamente con Swagger. Puedes acceder a ella visitando http://localhost:3000/docs después de iniciar la aplicación.
+
 
 
 ## Docker
