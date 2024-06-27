@@ -5,6 +5,7 @@ import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { idDto } from './dto/id.dto';
 import { productsDto } from './dto/products.dto';
+import { query } from 'express';
 
 @Injectable()
 export class ProductsService {
@@ -19,9 +20,31 @@ export class ProductsService {
     return data;
   }
 
-  async findAll(): Promise<productsDto> {
+  async findAll(limit: number = 30, skip: number = 0): Promise<productsDto> {
     const { data } = await firstValueFrom(
-      this.httpService.get('https://dummyjson.com/products'),
+      this.httpService.get('https://dummyjson.com/products', {
+        params: { limit, skip },
+      }),
+    );
+    return data;
+  }
+
+  async findCategories(): Promise<string[]> {
+    const { data } = await firstValueFrom(
+      this.httpService.get('https://dummyjson.com/products/category-list'),
+    );
+    return data;
+  }
+
+  async findCategory(
+    limit: number = 30,
+    skip: number = 0,
+    id: string = 'beauty',
+  ): Promise<productsDto> {
+    const { data } = await firstValueFrom(
+      this.httpService.get('https://dummyjson.com/products/category/' + id, {
+        params: { limit, skip },
+      }),
     );
     return data;
   }

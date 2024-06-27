@@ -6,11 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import {  ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Products')
 @Controller('products')
@@ -23,8 +24,21 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  findAll(@Query('limit') limit: number, @Query('skip') skip: number) {
+    return this.productsService.findAll(limit, skip);
+  }
+
+  @Get('/categories')
+  findCategories() {
+    return this.productsService.findCategories();
+  }
+  @Get('/categories/:id')
+  findCategory(
+    @Query('limit') limit: number,
+    @Query('skip') skip: number,
+    @Param('id') id: string,
+  ) {
+    return this.productsService.findCategory(limit, skip, id);
   }
 
   @Get(':id')
