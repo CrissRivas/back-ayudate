@@ -45,14 +45,14 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Docker
 
 ```bash
-# unit tests
-$ npm run test
+# Mount on dev
+$ sudo docker-compose -f docker-compose.yml up --build
 
-# e2e tests
-$ npm run test:e2e
+# Mount on prod
+$ sudo docker-compose -f docker-compose.prod.yml up --build
 
 # test coverage
 $ npm run test:cov
