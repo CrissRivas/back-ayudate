@@ -18,7 +18,6 @@ $ cd back-ayudate
 
 ## Instala las dependencias:
 
-```bash
 $ npm install
 ```
 
@@ -50,13 +49,13 @@ $ npm run start:prod
 
 
 ## Docker
-# Desarrollo
+### Desarrollo
 Para montar la aplicación en un contenedor Docker en modo desarrollo:
 ```bash
 # Mount on dev
 $ sudo docker-compose -f docker-compose.yml up --build
 ```
-# Producción
+### Producción
 Para montar la aplicación en un contenedor Docker en modo producción:
 
 ```bash
