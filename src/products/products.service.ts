@@ -20,10 +20,15 @@ export class ProductsService {
     return data;
   }
 
-  async findAll(limit: number = 30, skip: number = 0): Promise<productsDto> {
+  async findAll(
+    limit: number = 30,
+    skip: number = 0,
+    sortBy: string = 'id',
+    order: string = 'asc',
+  ): Promise<productsDto> {
     const { data } = await firstValueFrom(
       this.httpService.get('https://dummyjson.com/products', {
-        params: { limit, skip },
+        params: { limit, skip, sortBy, order },
       }),
     );
     return data;
@@ -48,7 +53,18 @@ export class ProductsService {
     );
     return data;
   }
-
+  async searchProduct(
+    q: string = '',
+    limit: number = 30,
+    skip: number = 0,
+  ): Promise<productsDto> {
+    const { data } = await firstValueFrom(
+      this.httpService.get('https://dummyjson.com/products/search', {
+        params: { q, limit, skip },
+      }),
+    );
+    return data;
+  }
   async findOne(id: number): Promise<CreateProductDto> {
     const { data } = await firstValueFrom(
       this.httpService.get('https://dummyjson.com/products/' + id),
