@@ -19,8 +19,11 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Ayudate')
     .setDescription('API de Ayudate')
+    .addTag('Auth')
+    .addTag('Products')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
